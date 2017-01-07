@@ -1,6 +1,7 @@
 import sys
 import NHIRDSelector
 import NHIRDParser
+import NHIRDPieChart
 #define HV fmt
 HV_fmt = [
     ('ID',1,32),
@@ -28,10 +29,10 @@ if len(sys.argv)<2 :
     sys.stderr.write('at least one input file need\n')
     exit(7)
 
-nr = NHIRDSelector.NHIRDSelector(
+npc = NHIRDPieChart.NHIRDPieChart(
     NHIRDParser.NHIRDParser(HV_fmt)
 )
-nr.Filter = lambda x : nr.parser.getByTag(x, 'ICD9CM_CODE').strip()  in\
+npc.Filter = lambda x : npc.parser.getByTag(x, 'ICD9CM_CODE').strip()  in\
 ICD9_include
-nr.read(sys.argv[1])
-print len(nr.repo)
+npc.read(sys.argv[1])
+print npc.pieInformation('ICD9CM_CODE')
