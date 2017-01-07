@@ -46,5 +46,3 @@ if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         for l in f:
             np.showInfo(l)
-            print np.getByTag(l, 'ID')
-            print np.getDictByTags(l, ('ID', 'ACODE_ICD9_1') )
