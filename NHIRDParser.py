@@ -23,3 +23,16 @@ class NHIRDParser:
 			values += s[x[1][0]: x[1][1] +1] + '\t'
 		print labels
 		print values
+if __name__ == '__main__':
+	if len(sys.argv)<2 :
+		sys.stderr.write('at least one input file need\n')
+		exit(7)
+	np = NHIRDParser([
+		('ID_BIRTHDAY',84,91),
+		('ID',92,123),
+		('ACODE_ICD9_1',132,146),
+		('ACODE_ICD9_2',147,161),
+		('ACODE_ICD9_3',162,176),
+		('ICD_OP_CODE',177,191),
+	])
+	
