@@ -40,12 +40,8 @@ if __name__ == '__main__':
         sys.stderr.write('at least one input file need\n')
         exit(7)
     np = NHIRDParser([
-        ('ID_BIRTHDAY',84,91),
-        ('ID',92,123),
-        ('ACODE_ICD9_1',132,146),
-        ('ACODE_ICD9_2',147,161),
-        ('ACODE_ICD9_3',162,176),
-        ('ICD_OP_CODE',177,191),
+        ('ID',1,32),
+        ('ICD9CM_CODE',33,37),
     ])
     with open(sys.argv[1]) as f:
         for l in f:
