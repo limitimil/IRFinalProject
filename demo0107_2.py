@@ -3,7 +3,7 @@ import NHIRDSelector
 import NHIRDParser
 import NHIRDPieChart
 import matplotlib.pyplot as plt
-#define HV fmt
+#define NHIRD fmt
 CD101_fmt = [
     ('ACODE_ICD9_1',132,146),
     ('ACODE_ICD9_2',147,161),

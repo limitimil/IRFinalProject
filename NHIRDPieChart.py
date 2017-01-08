@@ -1,11 +1,14 @@
 import NHIRDSelector
 class NHIRDPieChart(NHIRDSelector.NHIRDSelector):
-    def pieInformation(self, colname): 
+    def pieInformationDict(self, colname):
     #colname will decide which label in NHIRD data to show on pie
         retHash = {}
         for l in self.repo:
             label = self.parser.getByTag(l, colname)
             retHash[label] = retHash.get(label, 0) + 1
+        return retHash
+    def pieInformation(self, colname): 
+        retHash = self.pieInformationDict(colname)
         return retHash.keys(), retHash.values()
 if __name__ == '__main__':
     import NHIRDParser
