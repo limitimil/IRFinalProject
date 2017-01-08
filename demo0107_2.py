@@ -33,11 +33,11 @@ if len(sys.argv)<2 :
     exit(7)
 
 npc = NHIRDPieChart.NHIRDPieChart(
-    NHIRDParser.NHIRDParser(HV_fmt)
+    NHIRDParser.NHIRDParser(CD101_fmt)
 )
 npc.Filter = lambda x :\
-npc.parser.getByTag(x, 'ACODE_ICD9_1').strip()  in ICD9_include or
-npc.parser.getByTag(x, 'ACODE_ICD9_2').strip()  in ICD9_include or
+npc.parser.getByTag(x, 'ACODE_ICD9_1').strip()  in ICD9_include or\
+npc.parser.getByTag(x, 'ACODE_ICD9_2').strip()  in ICD9_include or\
 npc.parser.getByTag(x, 'ACODE_ICD9_3').strip()  in ICD9_include 
 
 npc.read(sys.argv[1])
