@@ -51,7 +51,7 @@ npc_hv.Filter = lambda x: npc_hv.parser.getByTag(x, 'ICD9CM_CODE').strip() in\
 ICD9_include
 npc_hv.read(sys.argv[1])
 ids = npc_hv.pieInformationDict('ID').keys()
-print 'length of ids is %s ' % ids
+print 'length of ids is %s ' % len(ids)
 
 npc_cd = NHIRDPieChart.NHIRDPieChart(
     NHIRDParser.NHIRDParser(CD101_fmt)
@@ -60,7 +60,7 @@ npc_cd.Filter = lambda x: npc_cd.parser.getByTag(x, 'ID') in\
 ids
 npc_cd.read(sys.argv[2])
 seqs = npc_cd.pieInformationDict('SEQ_NO').keys()
-print 'length of seqs is %s ' % seqs
+print 'length of seqs is %s ' % len(seqs)
 
 # I want to handle the NHIRD record by this script rather than handing it to
 # NSelector
