@@ -35,6 +35,13 @@ class NHIRDParser:
         for t in tags:
             ret[t] = self.getByTag(s,t)
         return ret
+    def lengthOfTag(self, tag):
+        be = self.fmt.get(tag, None)
+        if be:
+           return be[1] - be[0] + 1
+        else:
+            sys.stderr.write('cannot find tag name [%s]\n' % tag)
+            return None
 if __name__ == '__main__':
     if len(sys.argv)<2 :
         sys.stderr.write('at least one input file need\n')
