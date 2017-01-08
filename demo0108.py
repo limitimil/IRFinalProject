@@ -66,9 +66,10 @@ npc_cd = NHIRDPieChart.NHIRDPieChart(
 )
 npc_cd.Filter = lambda x: npc_cd.parser.getByTag(x, 'ID') in\
     ids and\
-    set(
-        npc_cd.parser.getDictByTags(x,['ACODE_ICD9_1','ACODE_ICD9_2','ACODE_ICD9_3',]).values() ###
-    ) & set(
+    set( map(
+        lambda x: x.strip(),
+        npc_cd.parser.getDictByTags(x,['ACODE_ICD9_1','ACODE_ICD9_2','ACODE_ICD9_3',]).values() 
+    )) & set(
         ICD9_include
     )
 npc_cd.read(sys.argv[2])
