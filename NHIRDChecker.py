@@ -9,7 +9,7 @@ class NHIRDChecker(NHIRDPieChart.NHIRDPieChart):
             label = self.parser.getByTag(l, colname)
             if records.get(label, None):
                 sys.stderr.write('unique check find duplicated value [%s]' %\
-                lable)  
+                label)  
                 return False
             else:
                 records[label] = True
@@ -26,7 +26,7 @@ class NHIRDChecker(NHIRDPieChart.NHIRDPieChart):
                 pass
             else:
                 sys.stderr.write('unique check find duplicated value [%s]' %\
-                lable)  
+                label)  
                 return False
         return True
 if __name__ == '__main__':
