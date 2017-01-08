@@ -10,17 +10,25 @@ HV_fmt = [
 ]
 CD101_fmt = [
     ('ID',92,123),
-    ('SEQ_NO',52,57)
+    ('SEQ_NO',52,57),
+    ('ACODE_ICD9_1',132,146),
+    ('ACODE_ICD9_2',147,161),
+    ('ACODE_ICD9_3',162,176),
 ]
 CD93to100_fmt = [
     ('ID',92,123),
-    ('SEQ_NO',52,57)
+    ('SEQ_NO',52,57),
+    ('ACODE_ICD9_1',132,136),
+    ('ACODE_ICD9_2',137,141),
+    ('ACODE_ICD9_3',142,146),
 ]
 OO101_fmt= [
-    ('SEQ_NO',52,57)
+    ('SEQ_NO',52,57),
+    ('DRUG_NO',59,70),
 ]
 OO96to100_fmt= [
-    ('SEQ_NO',52,57)
+    ('SEQ_NO',52,57),
+    ('DRUG_NO',59,70),
 ]
 #define my rule to filter data
 ICD9_include = (
@@ -57,7 +65,12 @@ npc_cd = NHIRDPieChart.NHIRDPieChart(
     NHIRDParser.NHIRDParser(CD101_fmt)
 )
 npc_cd.Filter = lambda x: npc_cd.parser.getByTag(x, 'ID') in\
-ids
+    ids and\
+    set(
+        npc_cd.parser.getDictByTags(x,['ACODE_ICD9_1','ACODE_ICD9_2','ACODE_ICD9_3',]).values() ###
+    ) & set(
+        ICD9_include
+    )
 npc_cd.read(sys.argv[2])
 seqs = npc_cd.pieInformationDict('SEQ_NO').keys()
 print 'length of seqs is %s ' % len(seqs)
