@@ -85,7 +85,7 @@ res = {}
 for l in f:
     label = parser.getByTag(l, 'SEQ_NO')
     if label in seqs:
-        res[label] = res.get(label, []) + [l]
+        res[label] = res.get(label, []) + [l.stirp()]
 
 ress = sorted(res.items(), key=lambda x: len(x[1]), reverse=True)[:10]
 for r in ress:
