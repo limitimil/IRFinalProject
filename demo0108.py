@@ -82,14 +82,15 @@ print 'length of seqs is %s ' % len(seqs)
 f = open(sys.argv[3])
 parser = NHIRDParser.NHIRDParser(OO101_fmt)
 res = {}
+drugs = set([])
 for l in f:
     label = parser.getByTag(l, 'SEQ_NO')
     if label in seqs:
         res[label] = res.get(label, []) + [l.stirp()]
+        drugs |= set([parser.getByTag(l, 'DRUG_NO')])
+outf = open('drug.log','w')
+for d in drugs:
+    outf.write('%s\n' % d)
+outf.close()
 
-ress = sorted(res.items(), key=lambda x: len(x[1]), reverse=True)[:10]
-for r in ress:
-    print red(r[0])
-    for rr in r[1]:
-        print rr
 
