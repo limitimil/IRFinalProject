@@ -58,7 +58,7 @@ npc_hv = NHIRDPieChart.NHIRDPieChart(
 npc_hv.Filter = lambda x: npc_hv.parser.getByTag(x, 'ICD9CM_CODE').strip() in\
 ICD9_include
 npc_hv.read(sys.argv[1])
-ids = npc_hv.pieInformationDict('ID').keys()
+ids = set(npc_hv.pieInformationDict('ID').keys())
 print 'length of ids is %s ' % len(ids)
 
 npc_cd = NHIRDPieChart.NHIRDPieChart(
@@ -73,7 +73,7 @@ npc_cd.Filter = lambda x: npc_cd.parser.getByTag(x, 'ID') in\
         ICD9_include
     )
 npc_cd.read(sys.argv[2])
-seqs = npc_cd.pieInformationDict('SEQ_NO').keys()
+seqs = set(npc_cd.pieInformationDict('SEQ_NO').keys())
 print 'length of seqs is %s ' % len(seqs)
 
 # I want to handle the NHIRD record by this script rather than handing it to
@@ -86,11 +86,9 @@ drugs = set([])
 for l in f:
     label = parser.getByTag(l, 'SEQ_NO')
     if label in seqs:
-        res[label] = res.get(label, []) + [l.stirp()]
+        res[label] = res.get(label, []) + [l.strip()]
         drugs |= set([parser.getByTag(l, 'DRUG_NO')])
 outf = open('drug.log','w')
 for d in drugs:
     outf.write('%s\n' % d)
 outf.close()
-
-

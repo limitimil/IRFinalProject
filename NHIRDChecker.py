@@ -15,14 +15,14 @@ class NHIRDChecker(NHIRDPieChart.NHIRDPieChart):
                 records[label] = True
         return True
     def uniqueCheck(self, colname):
-        if self.parser.lengthOfTag(colname) < 8:
+        if self.parser.lengthOfTag(colname) < 128:
             return self.simple_uniqueCheck(colname)
         #construct root 
         if self.repo:
             bst = BST.Node(self.parser.getByTag(self.repo[0], colname) )
         for l in self.repo[1:]:
             label = self.parser.getByTag(l, colname)
-            if binary_insert_check_unique(r, BST.Node(label)):
+            if binary_insert_check_unique(bst, BST.Node(label)):
                 pass
             else:
                 sys.stderr.write('unique check find duplicated value [%s]' %\
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         exit(8)
     nc = NHIRDChecker(
         NHIRDParser.NHIRDParser([ # CD101
-            ('SEQ_NO',52,57)
+            ('ID_STR',1,57)
         ])
     )
     nc.read(sys.argv[1])
