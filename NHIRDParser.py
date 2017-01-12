@@ -1,5 +1,5 @@
 import sys
-from colors import red
+from colors import red,green
 class NHIRDParser:
     def __init__(self, fmt):
     # fmt is a list of tuple with 3 element (col_name, begin, start)
@@ -11,7 +11,11 @@ class NHIRDParser:
                 sys.stderr.write('name colition of label %s\n' % record[0])
             if record[1] > record[2]:
                 #stderr about invalid start: end pair
-                sys.stderr.write('invalid start, end pair of label %s\n' % record[0])
+                sys.stderr.write(
+                    green('[omit]') +\
+                    'invalid start, end pair of label %s\n' % record[0]
+                )
+                continue
             self.fmt[record[0]] = (int(record[1]),int(record[2]) )
             # this transfer might lead to ValueError when the input value is invalid.
     def showInfo(self, s):

@@ -18,19 +18,17 @@ class NHIRDSelector:
         f = open(filename)
         for l in f:
             self.reads(l)
-    def Filter(self,s):
-        return bool(s)
     def selectData(self, tag, match=lambda x: bool(x)):
-        ret = []
-        for r in repo:
+        ret = NHIRDSelector(self.parser)
+        for r in self.repo:
             if match (self.parser.getByTag(r,tag) ):
-                ret.append(r)
+                ret.repo.append(r)
         return ret
     def selectDataMultipleConstraint(self, tags, match=lambda x: bool(x)):
-        ret = []
-        for r in repo:
+        ret = NHIRDSelector(self.parser)
+        for r in self.repo:
             if match ( self.parser.getDictByTags(r, tags) ):
-                ret.append(r)
+                ret.repo.append(r)
         return ret
     def onthefly(self, s):
         pass
@@ -38,6 +36,8 @@ class NHIRDSelector:
         pass
     def ontheflyB(self, s):
         pass
+    def Filter(self,s):
+        return bool(s)
 if __name__ == '__main__':
     if len(sys.argv)<2 :
         sys.stderr.write('at least one input file need\n')
@@ -48,8 +48,12 @@ if __name__ == '__main__':
             ('ICD9CM_CODE',33,37),
         ])
     )
-    nr.Filter = lambda x : int(nr.parser.getByTag(x, 'ICD9CM_CODE') ) ==  336
+    nr.Filter = lambda x : int(nr.parser.getByTag(x, 'ICD9CM_CODE') ) ==  13
 #    f = open(sys.argv[1]).read()
 #    nr.reads(f)
     nr.read(sys.argv[1])
     print nr.repo
+    print 'Filter~~~'
+    nr2 = nr.selectData('ID', match= lambda x:\
+    x=='c82df810f0e61cd6fc687be6db1e22fb')
+    print nr2.repo
