@@ -47,12 +47,19 @@ class NHIRDParser:
             sys.stderr.write('cannot find tag name [%s]\n' % tag)
             return None
 if __name__ == '__main__':
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('big5')
     if len(sys.argv)<2 :
         sys.stderr.write('at least one input file need\n')
         exit(7)
     np = NHIRDParser([
         ('ID',1,32),
         ('ICD9CM_CODE',33,37),
+        ('APPL_DATE', 49, 56),
+        ('RECV_DATE',124,131), 
+        ('DEATH',293,301),
+        ('VALID_E_DATE',305,312),
     ])
     with open(sys.argv[1]) as f:
         for l in f:

@@ -1,9 +1,13 @@
 import NHIRDParserPlus
-def storeInCompactFormat( selector, filename= 'op.out'):
+def storeInCompactFormat( selector, filename= 'op.out', sortkey=None):
     npp = NHIRDParserPlus.NHIRDParserPlus(selector.parser.fmt)
     fmt = npp.formater()
     f = open(filename, 'w')
-    for r in selector.repo:
+    if sortkey:
+        repo = sorted(selector.repo, key=sortkey)
+    else:
+        repo = selector.repo
+    for r in repo:
         f.write(npp.reformat(r, fmt))
         f.write('\n')
     return npp.compacted_fmt()

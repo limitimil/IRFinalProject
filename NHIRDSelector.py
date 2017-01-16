@@ -18,6 +18,9 @@ class NHIRDSelector:
         f = open(filename)
         for l in f:
             self.reads(l)
+    def readf(self, filestream):
+        for l in filestream:
+            self.reads(l)
     def selectData(self, tag, match=lambda x: bool(x)):
         ret = NHIRDSelector(self.parser)
         for r in self.repo:
