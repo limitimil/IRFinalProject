@@ -40,6 +40,7 @@ class drugBag:
             self.edges |= set([
                 drugEdge(drug_no, d)
             ])
+
 class Drug2DrugTransition: 
     def __init__(self, drugset):
         self.drugset = drugset
